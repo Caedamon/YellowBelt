@@ -20,6 +20,8 @@ class Program
     {
         Attack(15);
         Heal(10);
-        Console.WriteLine("\n Any Key to Exit");
+        Console.WriteLine("\nAny Key to Exit");
+        Console.ReadKey();
+        
     }
 }
