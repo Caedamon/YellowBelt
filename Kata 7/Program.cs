@@ -63,7 +63,7 @@ class Enemy
 
 class Program
 {
-    private static void Main(string[] args)
+    static void Main(string[] args)
     {
         Player player = new Player
         {
@@ -79,8 +79,8 @@ class Program
             Health = 50,
             Damage = 10
         };
-            
-        Player.Attack(Enemy, 20);
-        player.GainExperience()50);
+
+        player.Attack(enemy, 20);
+        player.GainExperience(50);
     }
 }
