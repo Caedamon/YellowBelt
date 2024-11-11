@@ -47,23 +47,40 @@ class Enemy
     public int Health { get; set; }
     public int Damage { get; set; }
 
-    public void TakeDamage(aint damage)
+    public void TakeDamage(int damage)
     {
         Health -= damage;
         if (Health > 0)
         {
-            Console.WriteLine($"Filler");
+            Console.WriteLine($"{EnemyType} takes {damage} amount of damage. Remaining Health: {Health}");
         }
         else
         {
-            Console.WriteLine($"Filler");
+            Console.WriteLine($"{EnemyType} takes {damage} damage and is slain!");
         }
     }
 }
 
 class Program
 {
-    Player.Attack(Enemy, 20);
-    player.GainExperience()50);
-        
+    private static void Main(string[] args)
+    {
+        Player player = new Player
+        {
+            Name = "Arin",
+            Health = 100,
+            Level = 1,
+            Experience = 0
+        };
+
+        Enemy enemy = new Enemy
+        {
+            EnemyType = "Orc",
+            Health = 50,
+            Damage = 10
+        };
+            
+        Player.Attack(Enemy, 20);
+        player.GainExperience()50);
+    }
 }
