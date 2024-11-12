@@ -1,6 +1,6 @@
 namespace Kata_10_Exam;
 
-public class Player : Icombat
+public class Player : ICombat
 {
     public string Name { get; set; }
     public int Health { get; set; }

@@ -6,6 +6,9 @@ Interface ICombat
     void TakeDamage(int damage);
 }
 
-//interface ISpeak
+interface ISpeak
+{
+    void Speak();
+}
 
 //Interface ITrade
