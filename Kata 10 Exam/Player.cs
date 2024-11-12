@@ -7,6 +7,7 @@ public class Player : ICombat
     public int Level { get; set; }
     public int Experience { get; set; }
     private const int MaxHealth = 100;
+    public Inventory Inventory { get; set; }
 
     public Player(string name)
     {
@@ -14,6 +15,8 @@ public class Player : ICombat
         Health = MaxHealth;
         Level = 1;
         Experience = 0;
+        Inventory = new Inventory();
+        Inventory.AddItem("healPotion");
     }
 
     public void Attack(ICombat target)
@@ -36,19 +39,36 @@ public class Player : ICombat
         }
     }
 
-    public void Heal()
+    public void UseHealPotion()
     {
-        int healAmount = 15;
-        int previousHealth = Health;
-        Health = Math.Min(Health + healAmount, MaxHealth);
-        int actualHeal = Health - previousHealth;
-        if (actualHeal > 0)
+        if (Inventory.RemoveItem("healPotion"))
         {
-            Console.WriteLine($"{Name} channels a soothing energy, restoring {actualHeal} health! Current Health is now {Health}");
+            int healAmount = 20;
+            int previousHealth = Health;
+            Health = Math.Min(Health + healAmount, MaxHealth);
+            int actualHeal = Health - previousHealth;
+
+            string[] healMessages = new[]
+            {
+                $"{Name} quickly downs a healing potion, restoring {actualHeal} health! Current health: {Health}/{MaxHealth}.",
+                $"{Name} drinks a healing potion, feeling energy flow through them! Health restored by {actualHeal}. Now at {Health}/{MaxHealth}.",
+                $"{Name} uses a potion, vitality returning with {actualHeal} health restored. Health is now {Health}/{MaxHealth}.",
+                $"{Name} gulps down a healing potion, regaining {actualHeal} health! Current health: {Health}/{MaxHealth}."
+            };
+
+            Console.WriteLine(healMessages[new Random().Next(healMessages.Length)]);
         }
         else
         {
-            Console.WriteLine($"{Name} attempts to heal but is already at full strength! Health remains at {Health}/{MaxHealth}.");
+            string[] noPotionMessages = new[]
+            {
+                $"{Name} rummages through their inventory... but finds no healing potions left!",
+                $"{Name} searches their bag, only to realize they’re out of healing potions!",
+                $"{Name} feels for a healing potion but finds nothing. No potions remain!",
+                $"{Name} sighs as they realize their supply of healing potions is depleted."
+            };
+
+            Console.WriteLine(noPotionMessages[new Random().Next(noPotionMessages.Length)]);
         }
     }
 

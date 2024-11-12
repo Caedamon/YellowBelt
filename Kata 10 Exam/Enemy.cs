@@ -2,15 +2,17 @@ namespace Kata_10_Exam;
 
 public class Enemy : ICombat
 {
+    private readonly Random random;
     public string Type { get; set; }
     public int Health { get; set; }
     public int Damage { get; set; }
 
-    public Enemy(string type, int health, int damage)
+    public Enemy(string type, int health, int damage, Random random)
     {
         Type = type;
         Health = health;
         Damage = damage;
+        this.random = random;
     }
 
     public void Attack(ICombat target)
@@ -25,7 +27,7 @@ public class Enemy : ICombat
             $"With a menacing growl, the {Type} strikes viciously, inflicting {Damage} damage!",
             $"The {Type} unleashes a fierce attack, slashing for {Damage} damage!",
         };
-        Console.WriteLine(attackMessages[new Random().Next(attackMessages.Length)]);
+        Console.WriteLine(attackMessages[random.Next(attackMessages.Length)]);
         target.TakeDamage(Damage);
     }
 
@@ -40,7 +42,7 @@ public class Enemy : ICombat
                 $"A furious roar echoes as the {Type} is wounded, losing {damage} health! Health left: {Health}.",
                 $"The {Type} recoils from the blow, enduring {damage} damage. Current health: {Health}."
             };
-            Console.WriteLine(hurtMessages[new Random().Next(hurtMessages.Length)]);
+            Console.WriteLine(hurtMessages[random.Next(hurtMessages.Length)]);
         }
         else
         {
@@ -50,7 +52,7 @@ public class Enemy : ICombat
                 $"With one last gasp, the {Type} crumbles to the ground, its strength utterly spent.",
                 $"The {Type} lets out a pained cry as it falls, defeated at last."
             };
-            Console.WriteLine(defeatMessages[new Random().Next(defeatMessages.Length)]);
+            Console.WriteLine(defeatMessages[random.Next(defeatMessages.Length)]);
         }
     }
     

@@ -11,6 +11,8 @@ public class Game
         string playerName = Console.ReadLine();
         player = new Player(playerName);
         Console.WriteLine($"{player.Name} is ready for the adventure!");
+        Console.WriteLine("\nPress any key to start your journey!");
+        Console.ReadKey();
     }
 
     public void Start()
@@ -21,19 +23,29 @@ public class Game
             Console.WriteLine($"{player.Name}'s stats: \nHealth {player.Health} \nLevel: {player.Level} \nExperience: {player.Experience}");
             int encounter = random.Next(1, 4);
 
-            if (encounter == 1)
+            switch (encounter)
             {
+                case 1:
                 EncounterEnemy();
+                break;
             }
-            else if (encounter == 2)
+            switch (encounter)
             {
+                case 2:
                 EncounterNPC();
+                break;
             }
-            else if (encounter == 3)
+            switch (encounter)
             {
+                case 3:
                 EncounterMerchant();
+                break;
             }
-
+            if (player.IsAlive())
+            {
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+            }
             Console.WriteLine("\nPress any key to Continue");
             Console.ReadKey();
             Console.Clear();
@@ -43,7 +55,7 @@ public class Game
     }
     private void EncounterEnemy()
     {
-        Enemy enemy = new Enemy("Goblin", 30, 5);
+        Enemy enemy = new Enemy("Goblin", 30, 5, random);
         Console.WriteLine($"\nA wild {enemy.Type} appears with {enemy.Health} health, it deals {enemy.Damage} damage per attack!");
         
         while (enemy.IsAlive() && player.IsAlive())
@@ -61,12 +73,19 @@ public class Game
             }
             else if (choice == "2")
             {
-                player.Heal();
-                enemy.Attack(player);
+                player.UseHealPotion();
+                if (enemy.IsAlive())
+                {
+                    enemy.Attack(player);
+                }
+            }
+            else if (choice == "3")
+            {
+                player.Inventory.ViewInventory();
             }
             else
             {
-                Console.WriteLine("That is not a valid choice! Try again!");
+                Console.WriteLine("That is not a valid choice! Try again.");
             }
         }
         if (player.IsAlive())
