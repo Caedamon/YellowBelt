@@ -1,14 +1,17 @@
-namespace Kata_10_Exam;
-
-Interface ICombat
+namespace Kata_10_Exam
+    
+public interface ICombat
 {
     void Attack(ICombat target);
     void TakeDamage(int damage);
 }
 
-interface ISpeak
+public interface ISpeak
 {
     void Speak();
 }
 
-//Interface ITrade
+public interface ITrade
+{
+    void Trade();
+}

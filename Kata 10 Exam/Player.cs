@@ -46,7 +46,7 @@ public class Player : ICombat
         }
     }
 
-    private void LevelUp
+    private void LevelUp()
     {
         Experience = 0;
         Level++;

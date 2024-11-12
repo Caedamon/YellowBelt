@@ -1,9 +1,9 @@
 namespace Kata_10_Exam;
 
-class NPC : ISpeak
+public class NPC : ISpeak
 {
-    public string Name
-    public string Dialogue
+    public string Name { get; set; }
+    public string Dialogue { get; set; }
 
     public NPC(string name, string dialogue)
     {
