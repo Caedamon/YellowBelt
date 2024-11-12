@@ -21,7 +21,8 @@ class Player
 
     public void Attack(Enemy enemy, int damage)
     {
-        Console.WriteLine($"Filler");
+        Console.WriteLine($"{Name} attacks {enemy.Type} and deals {damage}");
+        enemy.TakeDamage(damage);
     }
 }
 
@@ -36,11 +37,11 @@ class Enemy
         Health -= damage;
         if (Health > 0)
         {
-            Console.WriteLine($"filler");
+            Console.WriteLine($"{Type} takes {damage} damage. Remaining Life is: {Health}");
         }
         else
         {
-            Console.WriteLine($"Filler");
+            Console.WriteLine($"{Type} took {damage} damage and died.");
         }
     }
 }
@@ -52,7 +53,7 @@ class NPC
 
     public void Speak()
     {
-        Console.WriteLine($"Filler");
+        Console.WriteLine($"{Name} says: {Dialogue}");
     }
 }
 
@@ -63,7 +64,7 @@ class Merchant
 
     public void Trade()
     {
-        Console.WriteLine($"Filler");
+        Console.WriteLine($"{Name}'s Trade Inventory contains: {string.Join(", ", Inventory)}");
     }
 }
 
@@ -73,22 +74,33 @@ class Program
     {
         Player player = new Player
         {
-
+            Name = "Arin",
+            Health = 100,
+            Level = 1
         };
         
         Enemy enemy = new Enemy
         {
-
+            Type = "Goblin",
+            Health = 50,
+            Damage = 10
         };
+        player.Attack(enemy, 20);
+        Console.WriteLine();
         
         NPC npc = new NPC
         {
-
+            Name = "Villager",
+            Dialogue = "Welcome to our village!"
         };
+        npc.Speak();
+        Console.WriteLine();
         
         Merchant merchant = new Merchant
         {
-
+            Name = "Trader",
+            Inventory = new List<string> { "Sword", "Shield", "Potion" },
         };
+        merchant.Trade();
     }
 }
