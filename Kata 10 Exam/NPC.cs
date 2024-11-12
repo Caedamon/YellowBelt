@@ -13,6 +13,20 @@ public class NPC : ISpeak
     
     public void Speak()
     {
-        Console.WriteLine($"{Name} says: {Dialogue}");
+        string[] dialogueStyles = new[] 
+            //i kinda enjoy abusing chatgtp for this xD
+            //to be honest, ive got over 25 years of experience as a storyteller, rpg-game master and such
+            //so... i could write this in my sleep. i just...
+            //i dont want to put down hours ofstory-scripting for a oneshot!
+        {
+                $"{Name} clears their throat and says, \"{Dialogue}\"",
+                $"{Name} leans closer and whispers, \"{Dialogue}\"",
+                $"{Name} gestures passionately and exclaims, \"{Dialogue}\"",
+                $"{Name} sighs deeply before speaking: \"{Dialogue}\"",
+                $"{Name} looks you in the eye and says, \"{Dialogue}\"",
+                $"{Name} chuckles softly and remarks, \"{Dialogue}\"",
+                $"{Name} speaks in a low, serious tone: \"{Dialogue}\""
+        };
+        Console.WriteLine(dialogueStyles[new Random().Next(dialogueStyles.Length)]);
     }
 }
