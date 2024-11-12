@@ -19,6 +19,28 @@ public class Player : ICombat
         Inventory.AddItem("healPotion");
     }
 
+    private void DisplayHealthColor()
+    {
+        Console.Write($"{Name}'s Health: ");
+        DisplayColoredHealth(Health, MaxHealth);
+        Console.WriteLine($"/{MaxHealth}");
+    }
+
+    private void DisplayColoredHealth(int health, int maxHealth)
+    {
+        double healthPercentage = (double)health / maxHealth * 100;
+
+        if (healthPercentage <= 30)
+            Console.ForegroundColor = ConsoleColor.Red;
+        else if (healthPercentage >= 70)
+            Console.ForegroundColor = ConsoleColor.Green;
+        else
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
+        Console.Write(health);
+        Console.ResetColor();
+    }
+
     public void Attack(ICombat target)
     {
         int damage = 20;
@@ -32,6 +54,8 @@ public class Player : ICombat
         if (Health > 0)
         { 
             Console.WriteLine($"{Name} reels from the blow, taking {damage} damage! Health remaining: {Health}");
+            DisplayColoredHealth(Health, MaxHealth);
+            Console.WriteLine();
         }
         else
         {
@@ -55,8 +79,9 @@ public class Player : ICombat
                 $"{Name} uses a potion, vitality returning with {actualHeal} health restored. Health is now {Health}/{MaxHealth}.",
                 $"{Name} gulps down a healing potion, regaining {actualHeal} health! Current health: {Health}/{MaxHealth}."
             };
-
             Console.WriteLine(healMessages[new Random().Next(healMessages.Length)]);
+            DisplayColoredHealth(Health, MaxHealth);
+            Console.WriteLine();
         }
         else
         {
@@ -67,7 +92,6 @@ public class Player : ICombat
                 $"{Name} feels for a healing potion but finds nothing. No potions remain!",
                 $"{Name} sighs as they realize their supply of healing potions is depleted."
             };
-
             Console.WriteLine(noPotionMessages[new Random().Next(noPotionMessages.Length)]);
         }
     }

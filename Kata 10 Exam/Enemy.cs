@@ -14,6 +14,21 @@ public class Enemy : ICombat
         Damage = damage;
         this.random = random;
     }
+    
+    private void DisplayColoredHealth(int health, int maxHealth)
+    {
+        double healthPercentage = (double)health / maxHealth * 100;
+
+        if (healthPercentage <= 30)
+            Console.ForegroundColor = ConsoleColor.Red;
+        else if (healthPercentage >= 70)
+            Console.ForegroundColor = ConsoleColor.Green;
+        else
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
+        Console.Write(health);
+        Console.ResetColor();
+    }
 
     public void Attack(ICombat target)
     {
@@ -28,6 +43,7 @@ public class Enemy : ICombat
             $"The {Type} unleashes a fierce attack, slashing for {Damage} damage!",
         };
         Console.WriteLine(attackMessages[random.Next(attackMessages.Length)]);
+        DisplayColoredHealth(Health, 30);
         target.TakeDamage(Damage);
     }
 
