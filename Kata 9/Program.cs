@@ -12,3 +12,31 @@
 //     Merchant:
 // Properties: Name (string) and Inventory (list of items).
 // Method: Trade that displays available items in inventory.
+
+class Player
+{
+    
+}
+
+class Enemy
+{
+    
+}
+
+class NPC
+{
+    
+}
+
+class Merchant
+{
+    
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        
+    }
+}
