@@ -60,29 +60,34 @@ class Player
     {
         if (exp < 0) return;
         Experience += exp;
-        Console.WriteLine($"Filler");
+        Console.WriteLine($"{Name} gains {exp} exp. Total EXP = {Experience} ");
         if (Experience >= 100)
         {
-            levelUp();
+            LevelUp();
         }
     }
 
-    private void LevelUp();
+    private void LevelUp()
     {
         Experience = 0;
         Level++;
-        Console.WriteLine($"Filler");
+        Console.WriteLine($"Congratulations {Name}! You leveled up! Current level is now {Level}");
     }
 
     public void TakeDamage(int damage)
     {
         Health -= damage;
-        Console.WriteLine($"Filler");
+        Console.WriteLine($"{Name} takes {damage} damage. Remaining Health is now: {Health}");
     }
 }
 
 class Program
 {
-    
+    static void Main(string[] args)
+    {
+        Player player = new Player("Arin", 100);
+        player.GainExperience(50);
+        player.GainExperience(60);
+    }
     
 }
