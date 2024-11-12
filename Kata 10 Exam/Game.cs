@@ -20,34 +20,28 @@ public class Game
         while (player.IsAlive())
         {
             Console.Clear();
-            Console.WriteLine($"{player.Name}'s stats: \nHealth {player.Health} \nLevel: {player.Level} \nExperience: {player.Experience}");
+            Console.WriteLine($"{player.Name}'s stats:");
+            player.DisplayHealth();
+            Console.WriteLine($"Level: {player.Level} \nExperience: {player.Experience}");
             int encounter = random.Next(1, 4);
 
             switch (encounter)
             {
                 case 1:
-                EncounterEnemy();
-                break;
-            }
-            switch (encounter)
-            {
+                    EncounterEnemy();
+                    break;
                 case 2:
-                EncounterNPC();
-                break;
-            }
-            switch (encounter)
-            {
+                    EncounterNPC();
+                    break;
                 case 3:
-                EncounterMerchant();
-                break;
+                    EncounterMerchant();
+                    break;
             }
             if (player.IsAlive())
             {
                 Console.WriteLine("\nPress any key to continue...");
                 Console.ReadKey();
             }
-            Console.WriteLine("\nPress any key to Continue");
-            Console.ReadKey();
             Console.Clear();
         }
 

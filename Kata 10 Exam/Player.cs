@@ -16,10 +16,10 @@ public class Player : ICombat
         Level = 1;
         Experience = 0;
         Inventory = new Inventory();
-        Inventory.AddItem("healPotion");
+        Inventory.AddItem("Healing-Potion");
     }
 
-    private void DisplayHealthColor()
+    public void DisplayHealth()
     {
         Console.Write($"{Name}'s Health: ");
         DisplayColoredHealth(Health, MaxHealth);
@@ -54,7 +54,7 @@ public class Player : ICombat
         if (Health > 0)
         { 
             Console.WriteLine($"{Name} reels from the blow, taking {damage} damage! Health remaining: {Health}");
-            DisplayColoredHealth(Health, MaxHealth);
+            DisplayHealth();
             Console.WriteLine();
         }
         else
@@ -65,7 +65,7 @@ public class Player : ICombat
 
     public void UseHealPotion()
     {
-        if (Inventory.RemoveItem("healPotion"))
+        if (Inventory.RemoveItem("Healing-Potion"))
         {
             int healAmount = 20;
             int previousHealth = Health;
@@ -80,7 +80,7 @@ public class Player : ICombat
                 $"{Name} gulps down a healing potion, regaining {actualHeal} health! Current health: {Health}/{MaxHealth}."
             };
             Console.WriteLine(healMessages[new Random().Next(healMessages.Length)]);
-            DisplayColoredHealth(Health, MaxHealth);
+            DisplayHealth();
             Console.WriteLine();
         }
         else

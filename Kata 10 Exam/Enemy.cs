@@ -15,9 +15,9 @@ public class Enemy : ICombat
         this.random = random;
     }
     
-    private void DisplayColoredHealth(int health, int maxHealth)
+    private void DisplayColoredHealth()
     {
-        double healthPercentage = (double)health / maxHealth * 100;
+        double healthPercentage = (double)Health / 30 * 100;
 
         if (healthPercentage <= 30)
             Console.ForegroundColor = ConsoleColor.Red;
@@ -26,7 +26,7 @@ public class Enemy : ICombat
         else
             Console.ForegroundColor = ConsoleColor.Yellow;
 
-        Console.Write(health);
+        Console.Write(Health);
         Console.ResetColor();
     }
 
@@ -43,7 +43,6 @@ public class Enemy : ICombat
             $"The {Type} unleashes a fierce attack, slashing for {Damage} damage!",
         };
         Console.WriteLine(attackMessages[random.Next(attackMessages.Length)]);
-        DisplayColoredHealth(Health, 30);
         target.TakeDamage(Damage);
     }
 
@@ -52,11 +51,15 @@ public class Enemy : ICombat
         Health -= damage;
         if (Health > 0)
         {
+            Console.Write("Remaining health: ");
+            DisplayColoredHealth();
+            Console.WriteLine();
+            
             string[] hurtMessages = new[] //same here
             {
-                $"The {Type} staggers, taking {damage} damage! Remaining health: {Health}.",
-                $"A furious roar echoes as the {Type} is wounded, losing {damage} health! Health left: {Health}.",
-                $"The {Type} recoils from the blow, enduring {damage} damage. Current health: {Health}."
+                $"The {Type} staggers, taking {damage} damage!",
+                $"A furious roar echoes as the {Type} is wounded, losing {damage} health!",
+                $"The {Type} recoils from the blow, enduring {damage} damage."
             };
             Console.WriteLine(hurtMessages[random.Next(hurtMessages.Length)]);
         }
