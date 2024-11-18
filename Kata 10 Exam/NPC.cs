@@ -2,7 +2,7 @@ namespace Kata_10_Exam;
 
 public class NPC : ISpeak
 {
-    public string Name { get; set; }
+    public string Name { get; set; } //think of dry, how to improve, remove duplications in things like string name
     public string Dialogue { get; set; }
 
     public NPC(string name, string dialogue)
