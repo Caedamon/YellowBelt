@@ -16,7 +16,7 @@ public class Player : ICombat
         Level = 1;
         Experience = 0;
         Inventory = new Inventory();
-        Inventory.AddItem("Healing-Potion");
+        Inventory.AddItem("Healing-Potion", Inventory.DefaultHealingPotionUses);
     }
 
     public void DisplayHealth()
@@ -65,7 +65,7 @@ public class Player : ICombat
 
     public void UseHealPotion()
     {
-        if (Inventory.RemoveItem("Healing-Potion"))
+        if (Inventory.UseItem("Healing-Potion"))
         {
             int healAmount = 20;
             int previousHealth = Health;

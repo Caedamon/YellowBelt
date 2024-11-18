@@ -23,17 +23,17 @@ public class Game
             Console.WriteLine($"{player.Name}'s stats:");
             player.DisplayHealth();
             Console.WriteLine($"Level: {player.Level} \nExperience: {player.Experience}");
-            int encounter = random.Next(1, 4);
+            int encounter = random.Next(1, 21); //changed this to make it a lower chance of encountering npc and merchant
 
             switch (encounter)
             {
-                case 1:
+                case <= 14:
                     EncounterEnemy();
                     break;
-                case 2:
+                case <= 17:
                     EncounterNPC();
                     break;
-                case 3:
+                case <= 20:
                     EncounterMerchant();
                     break;
             }
@@ -95,8 +95,8 @@ public class Game
     }
     private void EncounterMerchant()
     {
-        Merchant merchant = new Merchant("Trader", new List<string> {"Sword", "Shield", "Potion"});
+        Merchant merchant = new Merchant("Trader", new List<string>());
         merchant.Speak();
-        merchant.Trade();
+        merchant.Trade(player);
     }
 }

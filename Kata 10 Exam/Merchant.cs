@@ -3,12 +3,12 @@ namespace Kata_10_Exam;
 public class Merchant : ISpeak, ITrade
 {
     public string Name { get; set; }
-    public List<string> Inventory { get; set; }
+    public List<string> Stock { get; set; } // Renamed from Inventory to avoid conflicts
 
-    public Merchant(string name, List<string> inventory)
+    public Merchant(string name, List<string> stock)
     {
         Name = name;
-        Inventory = inventory;
+        Stock = stock;
     }
 
     public void Speak()
@@ -24,21 +24,52 @@ public class Merchant : ISpeak, ITrade
         Console.WriteLine(speakOptions[new Random().Next(speakOptions.Length)]);
     }
 
-    public void Trade()
+    public void Trade(Player player)
     {
-        Console.WriteLine($"{Name}'s Inventory: {string.Join(", ", Inventory)}");
-        foreach (var item in Inventory)
+        Console.WriteLine($"{Name} leans forward and says, \"I have a gift for you—a Healing Potion, free of charge! But only if you don’t already have one or if your current potion is not at full potency.\"");
+
+        if (player.Inventory.HasItem("Healing-Potion"))
         {
-            Console.WriteLine($"- {item}");
+            if (player.Inventory.GetItemUses("Healing-Potion") < Inventory.DefaultHealingPotionUses)
+            {
+                MixPotion(player);
+            }
+            else
+            {
+                Console.WriteLine($"{Name} chuckles. \"You already have a full Healing Potion. No need for another!\"");
+            }
         }
-        string[] tradeOptions = new[]
+        else
         {
-            "Anything catch your eye? Don’t hesitate!",
-            "Feel free to choose an item to buy. Quality guaranteed!",
-            "See something you like? Go ahead, make an offer!",
-            "Take your time. But remember, the best deals don’t last long!",
-            "Careful with your choices, but don’t take too long now!"
+            GiftPotion(player);
+        }
+    }
+
+    private void GiftPotion(Player player)
+    {
+        player.Inventory.AddItem("Healing-Potion", Inventory.DefaultHealingPotionUses);
+
+        string[] giftMessages = new[]
+        {
+            $"{Name} smiles warmly. \"Take this Healing Potion, traveler. It has three uses—use it wisely.\"",
+            $"{Name} hands you a Healing Potion. \"A small token to aid you in your journey. It’s good for three uses.\"",
+            $"With a generous nod, {Name} gives you a Healing Potion. \"May it serve you well in times of need—three doses should be enough.\""
         };
-        Console.WriteLine(tradeOptions[new Random().Next(tradeOptions.Length)]);
+
+        Console.WriteLine(giftMessages[new Random().Next(giftMessages.Length)]);
+    }
+
+    private void MixPotion(Player player)
+    {
+        player.Inventory.AddItem("Healing-Potion", Inventory.DefaultHealingPotionUses);
+
+        string[] mixMessages = new[]
+        {
+            $"{Name} notices your depleted potion and says, \"Let me help you out.\" He mixes it to restore its potency.",
+            $"{Name} smiles and says, \"A little top-up for your potion, traveler.\" Your Healing Potion is now fully replenished.",
+            $"\"Ah, I see your potion is running low. Here, let me fix that for you,\" {Name} says as he restores your Healing Potion."
+        };
+
+        Console.WriteLine(mixMessages[new Random().Next(mixMessages.Length)]);
     }
 }

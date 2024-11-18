@@ -12,6 +12,6 @@ namespace Kata_10_Exam
     }
     public interface ITrade
     {
-        void Trade();
+        void Trade(Player player);
     }
 }
